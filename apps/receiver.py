@@ -30,7 +30,7 @@ class BaseTuner(gr.hier_block2):
 
         Sets baseband center frequency of frequency translating FIR filter
         Also sets file name of wave file sink
-        If tuner is tuned to zero Hz then set to file name to /dev/null
+        If tuner is tuned to zero Hz then set to file name to tmp.0
         Otherwise set file name to tuned RF frequency in MHz
 
         Args:
@@ -49,8 +49,8 @@ class BaseTuner(gr.hier_block2):
 
         # Set the file name
         if self.center_freq == 0 or not self.record:
-            # If tuner at zero Hz, or record false, then file name to /dev/null
-            file_name = "/dev/null"
+            # If tuner at zero Hz, or record false, then file name to tmp.0
+            file_name = "tmp.0"
         else:
             # Otherwise use frequency and time stamp for file name
             tstamp = "_" + str(int(time.time()))
@@ -70,7 +70,7 @@ class BaseTuner(gr.hier_block2):
     def _delete_wavfile_if_empty(self):
         """Delete the current wavfile if it's empty."""
         if (not self.record or not self.file_name or
-                self.file_name == '/dev/null'):
+                self.file_name == 'tmp.0'):
             return
 
         # If we never wrote any data to the wavfile sink, delete
@@ -142,7 +142,7 @@ class TunerDemodNBFM(BaseTuner):
         self.center_freq = 0
         squelch_db = -60
         self.quad_demod_gain = 0.050
-        self.file_name = "/dev/null"
+        self.file_name = "tmp.0"
         self.record = record
 
         # Decimation values for four stages of decimation
@@ -279,7 +279,7 @@ class TunerDemodAM(BaseTuner):
         self.center_freq = 0
         squelch_db = -60
         self.agc_ref = 0.1
-        self.file_name = "/dev/null"
+        self.file_name = "tmp.0"
         self.record = record
 
         # Decimation values for four stages of decimation

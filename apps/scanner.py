@@ -8,7 +8,7 @@ Created on Fri Jul  3 13:38:36 2015
 import __builtin__
 import receiver as recvr
 import estimate
-import parser as prsr
+import clparser as prsr
 import time
 import numpy as np
 import sys
@@ -390,10 +390,10 @@ def main():
 
         # Print the GUI tuned channels if they have changed
         if scanner.gui_tuned_channels != old_gui_tuned_channels:
-            sys.stdout.write("Tuners at: ")
+            print("Tuners at: ")
             for text in scanner.gui_tuned_channels:
-                sys.stdout.write(text + " ")
-            sys.stdout.write("\n")
+                print(text + " ")
+            #sys.stdout.write("\n")
         else:
             pass
         old_gui_tuned_channels = scanner.gui_tuned_channels
